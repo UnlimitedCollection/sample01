@@ -35,7 +35,7 @@ const PortfolioSection = () => {
               Selected Work
             </h2>
           </div>
-          <Button variant="outline" className="self-start md:self-auto">
+          <Button variant="outline" className="self-start md:self-auto" onClick={() => window.location.href = "/projects"}>
             View All Projects
             <ArrowUpRight className="w-4 h-4" />
           </Button>
