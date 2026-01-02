@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, TrendingUp, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const projects = [
   {
@@ -22,6 +23,8 @@ const projects = [
 ];
 
 const PortfolioSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="portfolio" className="py-24 bg-secondary/30">
       <div className="container">
@@ -35,7 +38,7 @@ const PortfolioSection = () => {
               Selected Work
             </h2>
           </div>
-          <Button variant="outline" className="self-start md:self-auto" onClick={() => window.location.href = "/projects"}>
+          <Button variant="outline" className="self-start md:self-auto" onClick={() => navigate("/projects")}>
             View All Projects
             <ArrowUpRight className="w-4 h-4" />
           </Button>
