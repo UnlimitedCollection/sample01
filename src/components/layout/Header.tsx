@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -12,6 +13,8 @@ const navItems = [
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,9 +25,20 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (href: string) => {
+    setIsMobileMenuOpen(false);
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      // Small timeout to allow navigation to occur before scrolling
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        element?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+      return;
+    }
+
     const element = document.querySelector(href);
     element?.scrollIntoView({ behavior: "smooth" });
-    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -37,9 +51,9 @@ const Header = () => {
       <div className="container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#" className="text-2xl font-bold font-heading text-foreground">
+          <button onClick={() => navigate("/")} className="text-2xl font-bold font-heading text-foreground">
             Alex<span className="text-accent">.</span>
-          </a>
+          </button>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
